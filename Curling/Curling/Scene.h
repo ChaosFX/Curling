@@ -1,5 +1,5 @@
 //
-//  MyScene.h
+//  Scene.h
 //  Curling
 //
 
@@ -8,6 +8,11 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface MyScene : SKScene
+typedef NS_ENUM(uint32_t, PhysicsCategory) {
+    PhysicsCategoryBackground   = 1 << 0,
+    PhysicsCategoryRock         = 1 << 1,
+};
+
+@interface Scene : SKScene <SKPhysicsContactDelegate>
 
 @end

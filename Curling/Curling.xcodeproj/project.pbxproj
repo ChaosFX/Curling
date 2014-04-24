@@ -16,8 +16,7 @@
 		B4671960190920B200BA6138 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B467195F190920B200BA6138 /* AppDelegate.m */; };
 		B4671963190920B200BA6138 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4671961190920B200BA6138 /* Main.storyboard */; };
 		B4671966190920B200BA6138 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4671965190920B200BA6138 /* ViewController.m */; };
-		B4671969190920B200BA6138 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B4671968190920B200BA6138 /* MyScene.m */; };
-		B467196B190920B200BA6138 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = B467196A190920B200BA6138 /* Spaceship.png */; };
+		B4671969190920B200BA6138 /* Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = B4671968190920B200BA6138 /* Scene.m */; };
 		B467196D190920B200BA6138 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B467196C190920B200BA6138 /* Images.xcassets */; };
 		B4671974190920B200BA6138 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4671973190920B200BA6138 /* XCTest.framework */; };
 		B4671975190920B200BA6138 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B467194D190920B200BA6138 /* Foundation.framework */; };
@@ -51,15 +50,15 @@
 		B4671962190920B200BA6138 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4671964190920B200BA6138 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B4671965190920B200BA6138 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B4671967190920B200BA6138 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
-		B4671968190920B200BA6138 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		B467196A190920B200BA6138 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		B4671967190920B200BA6138 /* Scene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		B4671968190920B200BA6138 /* Scene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Scene.m; sourceTree = "<group>"; };
 		B467196C190920B200BA6138 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B4671972190920B200BA6138 /* CurlingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurlingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4671973190920B200BA6138 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B467197B190920B200BA6138 /* CurlingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CurlingTests-Info.plist"; sourceTree = "<group>"; };
 		B467197D190920B200BA6138 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B467197F190920B200BA6138 /* CurlingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurlingTests.m; sourceTree = "<group>"; };
+		B467198C1909492B00BA6138 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,14 +120,14 @@
 		B4671955190920B200BA6138 /* Curling */ = {
 			isa = PBXGroup;
 			children = (
+				B467198C1909492B00BA6138 /* Math.h */,
 				B467195E190920B200BA6138 /* AppDelegate.h */,
 				B467195F190920B200BA6138 /* AppDelegate.m */,
 				B4671961190920B200BA6138 /* Main.storyboard */,
 				B4671964190920B200BA6138 /* ViewController.h */,
 				B4671965190920B200BA6138 /* ViewController.m */,
-				B4671967190920B200BA6138 /* MyScene.h */,
-				B4671968190920B200BA6138 /* MyScene.m */,
-				B467196A190920B200BA6138 /* Spaceship.png */,
+				B4671967190920B200BA6138 /* Scene.h */,
+				B4671968190920B200BA6138 /* Scene.m */,
 				B467196C190920B200BA6138 /* Images.xcassets */,
 				B4671956190920B200BA6138 /* Supporting Files */,
 			);
@@ -242,7 +241,6 @@
 			files = (
 				B467195A190920B200BA6138 /* InfoPlist.strings in Resources */,
 				B467196D190920B200BA6138 /* Images.xcassets in Resources */,
-				B467196B190920B200BA6138 /* Spaceship.png in Resources */,
 				B4671963190920B200BA6138 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,7 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4671969190920B200BA6138 /* MyScene.m in Sources */,
+				B4671969190920B200BA6138 /* Scene.m in Sources */,
 				B4671966190920B200BA6138 /* ViewController.m in Sources */,
 				B4671960190920B200BA6138 /* AppDelegate.m in Sources */,
 				B467195C190920B200BA6138 /* main.m in Sources */,
