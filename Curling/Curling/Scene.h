@@ -9,8 +9,8 @@
 #import <SpriteKit/SpriteKit.h>
 
 typedef NS_ENUM(uint32_t, PhysicsCategory) {
-    PhysicsCategoryBackground   = 1 << 0,
-    PhysicsCategoryRock         = 1 << 1,
+    PhysicsCategoryBackground   = 0x1 << 0,
+    PhysicsCategoryRock         = 0x1 << 1,
 };
 
 @interface Scene : SKScene <SKPhysicsContactDelegate>
