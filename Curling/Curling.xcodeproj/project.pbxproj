@@ -23,6 +23,7 @@
 		B4671976190920B200BA6138 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4671951190920B200BA6138 /* UIKit.framework */; };
 		B467197E190920B200BA6138 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B467197C190920B200BA6138 /* InfoPlist.strings */; };
 		B4671980190920B200BA6138 /* CurlingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B467197F190920B200BA6138 /* CurlingTests.m */; };
+		B49C695E190AC99A001B19C8 /* broom-sweep-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = B49C695D190AC99A001B19C8 /* broom-sweep-1.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		B467197D190920B200BA6138 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B467197F190920B200BA6138 /* CurlingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurlingTests.m; sourceTree = "<group>"; };
 		B467198C1909492B00BA6138 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
+		B49C695D190AC99A001B19C8 /* broom-sweep-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "broom-sweep-1.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				B4671967190920B200BA6138 /* Scene.h */,
 				B4671968190920B200BA6138 /* Scene.m */,
 				B467196C190920B200BA6138 /* Images.xcassets */,
+				B49C695D190AC99A001B19C8 /* broom-sweep-1.wav */,
 				B4671956190920B200BA6138 /* Supporting Files */,
 			);
 			path = Curling;
@@ -242,6 +245,7 @@
 				B467195A190920B200BA6138 /* InfoPlist.strings in Resources */,
 				B467196D190920B200BA6138 /* Images.xcassets in Resources */,
 				B4671963190920B200BA6138 /* Main.storyboard in Resources */,
+				B49C695E190AC99A001B19C8 /* broom-sweep-1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +474,7 @@
 				B4671985190920B200BA6138 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B4671986190920B200BA6138 /* Build configuration list for PBXNativeTarget "CurlingTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +483,7 @@
 				B4671988190920B200BA6138 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

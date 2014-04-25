@@ -15,11 +15,17 @@
     NSTimeInterval deltaTime;
     
     SKSpriteNode *background;
-    NSMutableArray *rockArray;
+    NSMutableArray *rockArrayP1;
+    NSMutableArray *rockArrayP2;
     SKSpriteNode *currentRock;
+    CGPoint startPosition;
     SKSpriteNode *broom1;
     SKSpriteNode *broom2;
     SKAction *swipe;
+    
+    BOOL turn;
+    SKLabelNode *player1Score;
+    SKLabelNode *player2Score;
     
     BOOL span;
     BOOL rockIsSliding;
@@ -30,6 +36,8 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         length = 0.0;
+        turn = YES;
+        startPosition = CGPointMake(162, 270);
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsWorld.contactDelegate = self;
@@ -39,43 +47,98 @@
         background.position = CGPointZero;
         background.zPosition = 1;
         background.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:background.frame];
-        background.physicsBody.friction = 0;
         background.physicsBody.categoryBitMask = PhysicsCategoryBackground;
         background.physicsBody.contactTestBitMask = PhysicsCategoryRock;
         background.physicsBody.collisionBitMask = PhysicsCategoryRock;
         [self addChild:background];
         
-        rockArray = [[NSMutableArray alloc] initWithCapacity:4];
+        [self createHUD];
         
-        for (NSUInteger i = 0; i < 4; i++) {
-            SKSpriteNode *rock = [SKSpriteNode spriteNodeWithImageNamed:@"rock"];
-            rock.name = @"rock";
-            rock.position = CGPointMake(162, 350);
-            rock.zPosition = 5;
-            rock.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:rock.size.width / 2];
-            rock.physicsBody.categoryBitMask = PhysicsCategoryRock;
-            rock.physicsBody.contactTestBitMask = PhysicsCategoryBackground | PhysicsCategoryRock;
-            rock.physicsBody.collisionBitMask = PhysicsCategoryBackground | PhysicsCategoryRock;
-            rock.physicsBody.usesPreciseCollisionDetection = YES;
-            rock.physicsBody.mass = 19.0;
-            
-            [rockArray addObject:rock];
-        }
+        rockArrayP1 = [[NSMutableArray alloc] initWithCapacity:4];
+        rockArrayP2 = [[NSMutableArray alloc] initWithCapacity:4];
+
+        [self createRocksForPlayer:1 inArray:rockArrayP1];
+        [self createRocksForPlayer:2 inArray:rockArrayP2];
         
         [self nextRock];
     }
+    
     return self;
+}
+
+- (void)createHUD
+{
+    player1Score = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    player1Score.position = CGPointMake(10, 460);
+    player1Score.fontSize = 20;
+    player1Score.fontColor = [SKColor blueColor];
+    player1Score.text = @"0";
+    player1Score.zPosition = 2;
+    [self addChild:player1Score];
+    
+    player2Score = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    player2Score.position = CGPointMake(310, 460);
+    player2Score.fontSize = 20;
+    player2Score.fontColor = [SKColor redColor];
+    player2Score.text = @"0";
+    player2Score.zPosition = 2;
+    [self addChild:player2Score];
+    
+}
+
+- (void)createRocksForPlayer:(int)player inArray:(NSMutableArray *)array
+{
+    
+    for (NSUInteger i = 0; i < 4; i++) {
+        SKSpriteNode *rock = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"rock%d", player]];
+        rock.name = [NSString stringWithFormat:@"rock%d", player];
+        rock.position = startPosition;
+        rock.zPosition = 5;
+        rock.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:rock.size.width / 2];
+        rock.physicsBody.categoryBitMask = PhysicsCategoryRock;
+        rock.physicsBody.contactTestBitMask = PhysicsCategoryBackground | PhysicsCategoryRock;
+        rock.physicsBody.collisionBitMask = PhysicsCategoryBackground | PhysicsCategoryRock;
+        rock.physicsBody.usesPreciseCollisionDetection = YES;
+        rock.physicsBody.mass = 19.0;
+        
+        [array addObject:rock];
+    }
 }
 
 - (void)nextRock
 {
-    if ([rockArray count]) {
-        currentRock = [rockArray lastObject];
+    if ([rockArrayP1 count] && turn) {
+        currentRock = [rockArrayP1 lastObject];
         [background addChild:currentRock];
-        [rockArray removeLastObject];
+        [rockArrayP1 removeLastObject];
+    } else if ([rockArrayP2 count] && !turn) {
+        currentRock = [rockArrayP2 lastObject];
+        [background addChild:currentRock];
+        [rockArrayP2 removeLastObject];
     } else {
-        currentRock = nil;
+        // currentRock = nil;
+        [self countPoint];
     }
+    
+    turn = !turn;
+}
+
+- (void)countPoint
+{
+    static int scoreP1 = 0;
+    static int scoreP2 = 0;
+    [background enumerateChildNodesWithName:@"rock1" usingBlock:^(SKNode *node, BOOL *stop) {
+        if (node.position.y > 1300) {
+            scoreP1 += 1;
+            [player1Score setText:[NSString stringWithFormat:@"%i", scoreP1]];
+        }
+    }];
+    [background enumerateChildNodesWithName:@"rock2" usingBlock:^(SKNode *node, BOOL *stop) {
+        if (node.position.y > 1300) {
+            scoreP2 += 1;
+            [player2Score setText:[NSString stringWithFormat:@"%i", scoreP2]];
+        }
+    }];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -95,7 +158,6 @@
 {
     if (span && !rockIsSliding) {
         CGPoint touchLocation = [[touches anyObject] locationInNode:self];
-        CGPoint startPosition = CGPointMake(162, 400);
         
         // Rechne Vektor, Winkel, Länge und normalisierten Vektor
         CGPoint vector = vectorSub(touchLocation, startPosition);
@@ -113,7 +175,7 @@
             length = 200;
         }
         
-        NSLog(@"%i", angleDegs);
+        // NSLog(@"%i", angleDegs);
         
         // Set new position
         currentRock.position = vectorAdd(startPosition, vectorScalarMult(normalVector, length));
@@ -123,18 +185,19 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (rockIsSliding) {
+        NSLog(@"swipe");
+        SKAction *broomSweep = [SKAction playSoundFileNamed:@"broom-sweep-1.wav" waitForCompletion:NO];
+        [self runAction:broomSweep];
         return;
     }
-    CGPoint vector = vectorSub(CGPointMake(162, 400), currentRock.position);
+    CGPoint vector = vectorSub(startPosition, currentRock.position);
     
-    CGPoint velocity = vectorScalarMult(vector, length * 0.1);
+    CGPoint velocity = vectorScalarMult(vector, length * 0.2);
     
     [currentRock.physicsBody applyImpulse:CGVectorMake(velocity.x, velocity.y)];
     
     span = NO;
     rockIsSliding = YES;
-    
-    //[self nextRock];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
@@ -149,8 +212,31 @@
     
     if ([currentRock.physicsBody isResting] && rockIsSliding) {
         rockIsSliding = NO;
+        [self deleteOutOfBounceRocks];
         [self nextRock];
     }
+}
+
+- (void)deleteOutOfBounceRocks
+{
+    // SKAction *fadeOut = [SKAction fadeOutWithDuration:0.5];
+    SKAction *remove = [SKAction removeFromParent];
+    // SKAction *fadeRemove = [SKAction sequence:@[fadeOut, remove]];
+    
+    [background enumerateChildNodesWithName:@"rock1" usingBlock:^(SKNode *node, BOOL *stop) {
+        if (node.position.y < 1000 || node.position.y > 1650) {
+            NSLog(@"%@ out of Bounce", node);
+            
+            [node runAction:remove];
+        }
+    }];
+    [background enumerateChildNodesWithName:@"rock2" usingBlock:^(SKNode *node, BOOL *stop) {
+        if (node.position.y < 1000 || node.position.y > 1650) {
+            NSLog(@"%@ out of Bounce", node);
+            
+            [node runAction:remove];
+        }
+    }];
 }
 
 - (void)centerViewpoint:(CGPoint)position
@@ -173,13 +259,13 @@
     
     uint32_t collision = firstBody.physicsBody.categoryBitMask | secondBody.physicsBody.categoryBitMask;
     
-    NSLog(@"firstbody: %@", firstBody);
-    NSLog(@"secondbody: %@", secondBody);
+    // NSLog(@"firstbody: %@", firstBody);
+    // NSLog(@"secondbody: %@", secondBody);
     
     if (collision == (PhysicsCategoryRock | PhysicsCategoryRock)) {
         NSLog(@"Two rocks hit");
     } else if (collision == (PhysicsCategoryRock | PhysicsCategoryBackground)) {
-        NSLog(@"rock hits background");
+        NSLog(@"rock hits the Wall");
     } else {
         NSLog(@"ERROR");
     }
